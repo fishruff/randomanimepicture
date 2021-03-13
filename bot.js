@@ -16,7 +16,6 @@ bot.hears("Дай тян", (ctx) => {
     (Math.round(random(0.3, 2.0) * 10) / 10).toFixed(1),
     ~~random(10000, 99999)
   );
-  console.log(url);
   ctx.replyWithPhoto(url);
 });
 
@@ -24,6 +23,7 @@ bot.start(async (ctx) => {
   ctx.reply("Hello!", {
     reply_markup: {
       keyboard: [[{ text: "Дай тян" }]],
+      resize_keyboard: true,
     },
   });
 }); //ответ бота на команду /start
