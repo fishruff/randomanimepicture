@@ -13,7 +13,7 @@ const getUrl = (psi, seed) =>
 
 bot.hears("Дай тян", (ctx) => {
   const url = getUrl(
-    Math.round(random(0.3, 2.0) * 10) / 10,
+    (Math.round(random(0.3, 2.0) * 10) / 10).toFixed(1),
     ~~random(10000, 99999)
   );
   console.log(url);
