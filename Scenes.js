@@ -40,6 +40,7 @@ class SceneGenerator {
   GenUrlScene() {
     console.log(psi);
     console.log(seed);
+    ctx.scene.leave();
   }
 }
 
