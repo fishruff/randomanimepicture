@@ -38,8 +38,8 @@ class SceneGenerator {
     return seed;
   }
   GenUrlScene() {
-    console.log(psi);
-    console.log(seed);
+    console.log(currPsi);
+    console.log(currSeed);
     ctx.scene.leave();
   }
 }
