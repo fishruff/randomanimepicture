@@ -38,7 +38,7 @@ bot.hears("Дай тян", (ctx) => {
 //   ctx.replyWithPhoto(url);
 // });
 
-const inline_keyboard = Markup.inline_keyboard(
+const inline_keyboard = Markup.inlineKeyboard(
   [
     Markup.callbackButton("Yes, send a keyboard", "yes"),
     Markup.callbackButton("No", "no"),
@@ -53,6 +53,8 @@ const keyboard = Markup.keyboard([["Top"], ["Button 1", "Button 2"]]);
 bot.action("no", (ctx) => ctx.answerCbQuery("No so no"));
 bot.action("yes", async (ctx) => {
   await ctx.answerCbQuery("Okey");
+
+  await ctx.deleteMessage(ctx.callbackQuery.message.message_id);
 
   await ctx.reply("Enter Psi", keyboard.resize().extra());
 });
