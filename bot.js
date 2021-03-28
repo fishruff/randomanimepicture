@@ -2,10 +2,10 @@ const { Telegraf } = require("telegraf");
 const { Extra, Markup, Stage, session } = Telegraf;
 const dotnev = require("dotenv");
 const { default: axios } = require("axios");
-const SceneGenerator = require("./Scenes");
-const currScene = new SceneGenerator();
-const psiScene = curr.GenPsiScene();
-const seedScene = curr.GenSeedScene();
+// const SceneGenerator = require("./Scenes");
+// const currScene = new SceneGenerator();
+// const psiScene = curr.GenPsiScene();
+// const seedScene = curr.GenSeedScene();
 
 dotnev.config();
 const bot = new Telegraf(process.env.BOT_TOKEN || "");
@@ -37,23 +37,49 @@ bot.hears("Дай тян", (ctx) => {
 //   );
 //   ctx.replyWithPhoto(url);
 // });
+
+const inline_keyboard = Markup.inline_keyboard(
+  [
+    Markup.callbackButton("Yes, send a keyboard", "yes"),
+    Markup.callbackButton("No", "no"),
+  ],
+  {
+    columns: 1,
+  }
+);
+
+const keyboard = Markup.keyboard([["Top"], ["Button 1", "Button 2"]]);
+
+bot.action("no", (ctx) => ctx.answerCbQuery("No so no"));
+bot.action("yes", async (ctx) => {
+  await ctx.answerCbQuery("Okey");
+
+  await ctx.reply("Enter Psi", keyboard.resize().extra());
+});
+
 bot.start(async (ctx) => {
-  ctx.reply("Hello!", {
-    reply_markup: {
-      keyboard: [[{ text: "Дай тян" }, { text: "Ручной ввод чисel" }]],
-      resize_keyboard: true,
-      т,
-    },
-  });
+  ctx.reply(
+    "Hello!",
+    inline_keyboard.extra()
+    //  {
+    //   reply_markup: {
+    //     keyboard: [[{ text: "Дай тян" },
+    //     //  { text: "Ручной ввод чисel" }
+    //     ]],
+    //     resize_keyboard: true,
+    //     т,
+    //   },
+    // }
+  );
 });
 
-const stage = new Stage([psiScene, seedScene]);
-bot.use(session());
-bot.use(stage.middleware());
+// const stage = new Stage([psiScene, seedScene]);
+// bot.use(session());
+// bot.use(stage.middleware());
 
-bot.command("scenes", async (ctx) => {
-  ctx.scene.enter("psi");
-});
+// bot.command("scenes", async (ctx) => {
+//   ctx.scene.enter("psi");
+// });
 bot.help((ctx) => ctx.reply("wqeqwe")); //ответ бота на команду /help
 bot.on("sticker", (ctx) => ctx.reply("")); //bot.on это обработчик введенного юзером сообщения, в данном случае он отслеживает стикер, можно использовать обработчик текста или голосового сообщения
 // bot.hears("hi", (ctx) => ctx.reply("Hey there")); // bot.hears это обработчик конкретного текста, данном случае это - "hi"
